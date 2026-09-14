@@ -99,7 +99,7 @@ table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;pad
 <div class="node"><b>复盘</b><small>错词 → 3日/7日/14日再测</small></div>
 </div></section>
 
-<section id="resources" class="panel card"><h2>📚 已接入资料库</h2><p class="muted">这里保存“学习入口”。资料本体不要直接公开到 GitHub；尤其不要把私人链接放进公开仓库。</p><div class="resources" id="resourcesList"></div></section>
+<section id="resources" class="panel card"><h2>📚 资料库 3.1</h2><p class="muted">现在支持<strong>真正打开文件</strong>：把 PDF / Word / 图片导入本机浏览器后，文件会保存在浏览器的 IndexedDB 中。以后点击“打开”即可再次查看；不会上传到 GitHub。</p><div class="actions" style="margin:12px 0"><label class="btn">＋ 导入资料 <input id="filePicker" type="file" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.md,.jpg,.jpeg,.png,.webp" style="display:none"></label><button class="btn alt" onclick="openResourceModal()">＋ 添加外部链接</button><button class="btn alt" onclick="document.getElementById('resourceSearch').focus()">⌕ 搜索资料</button></div><input id="resourceSearch" class="search" placeholder="搜索：数学、英语、真题、专题、词汇……" oninput="renderResources()"><div id="importStatus" class="muted" style="margin-top:8px"></div><div class="resources" id="resourcesList"></div></section>
 
 <section id="mistakes" class="panel card"><h2>❌ 错题本</h2>
 <div class="actions"><button class="btn" onclick="openMistake()">+ 记录错题</button></div>
@@ -114,6 +114,8 @@ table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;pad
 <p class="muted">所有任务、番茄、错题和日期只保存在当前浏览器 localStorage；换设备不会自动同步。</p>
 </section>
 </div>
+
+<div class="modal" id="resourceModal"><div class="modalbox"><h3>添加外部资料链接</h3><label>资料名称</label><input id="rName" placeholder="例如：复旦数学真题 2025"><label style="display:block;margin-top:10px">说明</label><input id="rDesc" placeholder="例如：历年真题 / 专题讲义"><label style="display:block;margin-top:10px">链接</label><input id="rUrl" type="url" placeholder="https://..."><div class="actions" style="margin-top:12px"><button class="btn" onclick="saveResourceLink()">保存</button><button class="btn alt" onclick="closeResourceModal()">取消</button></div></div></div>
 
 <div class="modal" id="modal"><div class="modalbox"><h3>记录错题</h3>
 <label>科目</label><select id="mSubject"><option>数学</option><option>英语</option><option>CMC</option></select>
@@ -139,7 +141,7 @@ function render(){
 document.getElementById("tasks").innerHTML=TASKS.map((x,i)=>`<div class="task ${state.tasks[i]?'done':''}"><input type="checkbox" ${state.tasks[i]?'checked':''} onchange="toggleTask(${i})"><label><b>${x[0]}</b> · ${x[1]}</label><span class="tag">${i<2?'高优先级':i<5?'主线':'复盘'}</span></div>`).join("");
 let done=state.tasks.filter(Boolean).length,p=Math.round(done/TASKS.length*100);document.getElementById("taskPct").textContent=p+"%";document.getElementById("taskBar").style.width=p+"%";document.getElementById("doneCount").textContent=done;document.getElementById("pomCount").textContent=state.pom;document.getElementById("mistakeCount").textContent=state.mistakes.length;document.getElementById("hours").textContent=(state.hours||0).toFixed(1);document.getElementById("reviewCount").textContent=state.mistakes.filter(m=>new Date(m.next)<=new Date()).length;
 document.getElementById("mathTree").innerHTML=MATH.map(x=>`<div class="node"><b>${x}</b><small>未开始 · 做题后可在错题本追踪</small></div>`).join("");
-document.getElementById("resourcesList").innerHTML=RES.map(x=>`<div class="resource"><b>${x[0]}</b><small class="muted">${x[1]}</small><br><button class="btn small alt" onclick="alert('这是系统中的资料入口。当前版本不会自动把私人/上传文件发布到公开网页。')">学习入口</button></div>`).join("");
+renderResources();
 document.getElementById("mistakesTable").innerHTML=state.mistakes.length?state.mistakes.map((m,i)=>`<tr><td>${m.date}</td><td>${m.subject}</td><td>${m.type}</td><td>${m.reason}</td><td>${m.next}</td><td><button class="btn small alt" onclick="delMistake(${i})">删除</button></td></tr>`).join(""):"<tr><td colspan=6 class=muted>还没有错题。第一次做错并认真记录，才是系统真正开始学习的时候。</td></tr>";
 document.getElementById("reviewList").innerHTML=state.mistakes.length?state.mistakes.map((m,i)=>`<div class="card" style="margin:8px 0"><b>${m.subject} · ${m.type}</b><div>${m.reason}</div><small class="muted">下次复习：${m.next}</small></div>`).join(""):"<p class=muted>暂无复习任务。</p>";
 }
@@ -159,6 +161,41 @@ function saveDates(){if(cmcDate.value)localStorage.cmcDate=cmcDate.value;else lo
 function clearDates(){localStorage.removeItem("cmcDate");localStorage.removeItem("transferDate");cmcDate.value="";transferDate.value="";updateDates()}
 function clearAll(){if(confirm("确定清空本机全部学习数据？")){localStorage.removeItem("studyOS3");location.reload()}}
 function clock(){document.getElementById("clock").textContent=new Date().toLocaleString("zh-CN",{hour12:false})}
+
+const DB_NAME="myStudyOS31Files", DB_VERSION=1, STORE="resources";
+const RESOURCE_FILES={
+"插班生数学考前必刷": ["插班生数学考前必刷","真题 / 高频题型"],
+"复旦2016—2025历年真题":["复旦2016—2025历年真题","核心真题层"],
+"同达数学一月模拟":["同达数学一月模拟","阶段模拟"],
+"同达数学三月模拟":["同达数学三月模拟","阶段模拟 + 答案"],
+"同达数学四月模考":["同达数学四月模考","阶段模考"],
+"同达数学五月模考一/二/三轮":["同达数学五月模考一/二/三轮","考前综合模考"],
+"科兴复旦数学阶段测试/仿真卷":["科兴复旦数学阶段测试/仿真卷","模拟训练层"],
+"同达数学专题讲义":["同达数学专题讲义","极限 / 数列 / 中值定理 / 级数 / 不等式 / 多元等"],
+"插班生语法与词汇2000题":["插班生语法与词汇2000题","词汇语法训练"],
+"985英语词汇语法":["985英语词汇语法","高阶词汇语法"],
+"985阅读同义词替换":["985阅读同义词替换","阅读定位与同义改写"],
+"专四词汇语法详细解答":["专四词汇语法详细解答","高阶语法词汇"],
+"插班生英语高频词汇":["插班生英语高频词汇","词汇主线"],
+"四六级仔细阅读解题技巧":["四六级仔细阅读解题技巧","阅读方法"],
+"四六级冲刺必背词汇&短语":["四六级冲刺必背词汇&短语","词汇短语"],
+"四六级写作10大话题 + 翻译20篇 + 高频写作短语":["四六级写作10大话题 + 翻译20篇 + 高频写作短语","输出训练"]
+};
+function dbOpen(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,DB_VERSION);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE,{keyPath:"id"})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+async function dbPut(obj){const db=await dbOpen();return new Promise((res,rej)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).put(obj);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
+async function dbGet(id){const db=await dbOpen();return new Promise((res,rej)=>{const r=db.transaction(STORE).objectStore(STORE).get(id);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function dbAll(){const db=await dbOpen();return new Promise((res,rej)=>{const r=db.transaction(STORE).objectStore(STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}
+async function dbDelete(id){const db=await dbOpen();return new Promise((res,rej)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).delete(id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
+function rid(name){return "r_"+btoa(unescape(encodeURIComponent(name))).replace(/[^a-zA-Z0-9]/g,"").slice(0,80)}
+function safe(t){return String(t||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
+function renderResources(){dbAll().then(items=>{const q=(document.getElementById("resourceSearch")?.value||"").toLowerCase().trim();const all=[...RES.map(x=>({id:rid(x[0]),name:x[0],desc:x[1]})),...items.filter(x=>x.custom).map(x=>({id:x.id,name:x.name,desc:x.desc,url:x.url,fileName:x.fileName,custom:true}))];const seen=new Set();const list=all.filter(x=>{if(seen.has(x.id))return false;seen.add(x.id);return !q||(x.name+x.desc).toLowerCase().includes(q)});document.getElementById("resourcesList").innerHTML=list.map(x=>`<div class="resource"><b>${safe(x.name)}</b><small class="muted">${safe(x.desc)}</small><div class="resource-meta">${x.fileName?"已导入： "+safe(x.fileName):x.url?"外部链接":"尚未导入本地文件"}</div><div class="actions"><button class="btn small" onclick="openResource('${x.id}')">打开</button><label class="btn small alt">${x.fileName?"更换文件":"导入文件"}<input type="file" style="display:none" onchange="attachFile('${x.id}','${safe(x.name)}',this.files[0])"></label>${x.custom?`<button class="btn small alt" onclick="removeResource('${x.id}')">删除</button>`:""}</div></div>`).join("")||'<p class="muted">没有匹配的资料。</p>'}).catch(console.error)}
+async function attachFile(id,name,file){if(!file)return;await dbPut({id,name,desc:(RESOURCE_FILES[name]?.[1]||"自定义资料"),fileName:file.name,file,updatedAt:Date.now(),custom:false});document.getElementById("importStatus").textContent="已导入："+file.name;renderResources()}
+async function openResource(id){const x=await dbGet(id);if(x?.file){const u=URL.createObjectURL(x.file);window.open(u,"_blank");setTimeout(()=>URL.revokeObjectURL(u),60000);return}if(x?.url){window.open(x.url,"_blank");return}alert("这份资料还没有导入。点击“导入文件”选择你电脑上的 PDF / Word 文件即可。")}
+function openResourceModal(){document.getElementById("resourceModal").classList.add("show")}
+function closeResourceModal(){document.getElementById("resourceModal").classList.remove("show")}
+async function saveResourceLink(){const name=document.getElementById("rName").value.trim(),desc=document.getElementById("rDesc").value.trim(),url=document.getElementById("rUrl").value.trim();if(!name||!url)return alert("请填写名称和链接");await dbPut({id:rid(name),name,desc:desc||"外部资料",url,custom:true,updatedAt:Date.now()});closeResourceModal();document.getElementById("rName").value="";document.getElementById("rDesc").value="";document.getElementById("rUrl").value="";renderResources()}
+async function removeResource(id){if(confirm("删除这条自定义资料？")){await dbDelete(id);renderResources()}}
+document.getElementById("filePicker").addEventListener("change",async e=>{const fs=[...e.target.files];for(const file of fs){const match=Object.keys(RESOURCE_FILES).find(k=>file.name.includes(k.replace(/[—/]/g,""))||file.name.includes(k.split(" ")[0]));const name=match||file.name.replace(/\.[^.]+$/,'');await dbPut({id:rid(name),name,desc:match?RESOURCE_FILES[match][1]:"导入资料",fileName:file.name,file,updatedAt:Date.now(),custom:!match})}document.getElementById("importStatus").textContent=fs.length?`已导入 ${fs.length} 个文件。`:"";e.target.value="";renderResources()});
 clock();setInterval(clock,1000);updateDates();render();
 </script>
 </body></html>
