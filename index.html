@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MY STUDY OS 3.0</title>
+<title>MY LIFE OS 4.2</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#fff;color:#111;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
 button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:28px 20px 70px}
@@ -16,19 +16,22 @@ h1{font-size:32px;margin:0;letter-spacing:.08em}.sub{color:#666;margin-top:6px}.
 .countdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.countdown div{border:1px solid #bbb;padding:12px;text-align:center}.countdown b{font-size:27px;display:block}
 .tabs{display:flex;gap:7px;overflow:auto;margin:20px 0}.tab{white-space:nowrap;padding:9px 12px;border:1px solid #111;background:#fff}.tab.active{background:#111;color:#fff}
 .panel{display:none}.panel.active{display:block}.tree{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.node{border:1px solid #bbb;padding:11px;min-height:70px}.node b{display:block}.node small{color:#666}
-.resources{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.resource{border:1px solid #bbb;padding:13px}.resource b{display:block;margin-bottom:5px}.resource button{margin-top:8px}
+.resources{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.resource{border:1px solid #bbb;padding:13px}.resource b{display:block;margin-bottom:5px}.resource button{margin-top:8px}.resource-meta{font-size:11px;color:#777;margin-top:7px}.resource-preview{margin-top:9px;padding:9px;background:#f7f7f7;border:1px solid #eee;font-size:12px;white-space:pre-wrap}
 table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;padding:9px;text-align:left;font-size:13px}textarea,input[type=text],input[type=date],input[type=number],select{border:1px solid #111;padding:9px;width:100%;background:#fff}
 .modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalbox{background:#fff;border:2px solid #111;max-width:560px;width:100%;padding:20px}.modalbox h3{margin-top:0}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.tree,.resources{grid-template-columns:1fr 1fr}header{display:block}.date{margin-top:10px}.hero .big{font-size:34px}}
 @media(max-width:480px){.tree,.resources{grid-template-columns:1fr}}
+
+.wordgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.word-card{border:1px solid #bbb;padding:14px}.word-card .word{font-size:25px;font-weight:800}.quizbox{border:2px solid #111;padding:18px;margin-top:14px}.quizword{font-size:38px;font-weight:800;letter-spacing:.03em}.result{padding:10px;border:1px solid #bbb;margin-top:10px;min-height:42px}.lang-switch{display:flex;gap:4px;align-items:center}.lang-switch button{padding:5px 9px;border:1px solid #111;background:#fff}.lang-switch button.active{background:#111;color:#fff}
+@media(max-width:650px){.wordgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><div><h1>MY STUDY OS 3.0</h1><div class="sub">插班生 × CMC · 个人备考操作系统</div></div><div class="date" id="clock"></div></header>
+<header><div><h1>MY LIFE OS 4.2</h1><div class="sub">Build Skills · Build Capital · Build Freedom · 个人成长操作系统</div></div><div><div class="lang-switch"><span class="muted">Language / 语言</span><button id="langZh" onclick="setLang('zh')">中文</button><button id="langEn" onclick="setLang('en')">EN</button></div><div class="date" id="clock"></div></div></header>
 
 <section class="hero">
-<div class="muted">当前主线</div><div class="big">今天，完成最重要的 6 件事。</div>
+<div class="muted">人生主线</div><div class="big">先成为高价值的人，再让能力产生收入，让资本产生复利。</div>
 <div style="margin-top:14px">今日任务进度 <b id="taskPct">0%</b></div><div class="bar"><i id="taskBar"></i></div>
 <div class="actions" style="margin-top:16px"><button class="btn" onclick="switchTab('today')">开始今日任务</button><button class="btn alt" onclick="switchTab('mistakes')">复盘错题</button><button class="btn alt" onclick="switchTab('resources')">打开资料库</button></div>
 </section>
@@ -83,8 +86,22 @@ table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;pad
 </div>
 
 <div class="tabs">
-<button class="tab active" data-tab="today">今日任务</button><button class="tab" data-tab="math">数学知识树</button><button class="tab" data-tab="english">英语路线</button><button class="tab" data-tab="resources">资料库</button><button class="tab" data-tab="mistakes">错题本</button><button class="tab" data-tab="review">复习队列</button><button class="tab" data-tab="settings">设置</button>
+<button class="tab active" data-tab="today">今日任务</button><button class="tab" data-tab="goals">🎯 目标</button><button class="tab" data-tab="math">数学知识树</button><button class="tab" data-tab="english">英语路线</button><button class="tab" data-tab="words">✍️ 单词拼写</button><button class="tab" data-tab="international">🌍 交换</button><button class="tab" data-tab="skills">🧠 能力资本</button><button class="tab" data-tab="tech">💻 AI/编程</button><button class="tab" data-tab="projects">🧪 项目</button><button class="tab" data-tab="resources">资料库</button><button class="tab" data-tab="finance">财经金融</button><button class="tab" data-tab="frontier">前沿科学</button><button class="tab" data-tab="mistakes">错题本</button><button class="tab" data-tab="review">复习队列</button><button class="tab" data-tab="favorites">🌐 收藏</button><button class="tab" data-tab="settings">设置</button>
 </div>
+
+<section id="goals" class="panel card"><h2>🎯 人生目标系统</h2><p class="muted">从“想成功”变成可追踪的长期路线：10年 → 3年 → 1年 → 本季度 → 本周 → 今天。</p><div class="tree"><div class="node"><b>10年愿景</b><small>职业、收入、资产、国际经历、能力、生活方式</small></div><div class="node"><b>3年目标</b><small>本科毕业时的 GPA、英语、技能、项目、科研、海外经历</small></div><div class="node"><b>1年目标</b><small>今年必须形成的可验证成果</small></div><div class="node"><b>当前季度</b><small>一个阶段只突破少数关键能力</small></div></div><div class="grid" style="margin-top:14px"><div class="node"><b>学业</b><small>GPA / 数学 / 英语 / CMC / 插班生</small></div><div class="node"><b>职业</b><small>AI / 编程 / 科研 / 项目 / 实习</small></div><div class="node"><b>财富</b><small>赚钱能力 / 金融素养 / 长期资本</small></div></div><textarea id="visionNote" rows="7" placeholder="写下你的10年愿景和今年最重要的目标……" style="margin-top:14px"></textarea><div class="actions"><button class="btn" onclick="saveVision()">保存目标</button></div></section>
+
+<section id="words" class="panel card"><h2>✍️ Word Spelling · 单词拼写训练</h2><p class="muted">自己添加单词、中文释义和例句，然后随机抽词，直接拼写答案。单词和成绩保存在当前浏览器本机。</p>
+<div class="card" style="margin-bottom:14px"><h3>添加我的单词</h3><div class="wordgrid"><div><label>单词</label><input id="wordInput" type="text" placeholder="例如：collaborate"></div><div><label>中文释义</label><input id="meaningInput" type="text" placeholder="例如：合作"></div><div><label>例句（可选）</label><input id="exampleInput" type="text" placeholder="例如：We collaborate on research."></div><div><label>分类（可选）</label><input id="wordCategoryInput" type="text" placeholder="例如：插班生 / CMC / AI"></div></div><div class="actions" style="margin-top:12px"><button class="btn" onclick="addWord()">＋ 保存单词</button><button class="btn alt" onclick="importWordsPrompt()">批量导入</button></div></div>
+<div class="quizbox"><div class="muted">拼写测试</div><div id="quizWord" class="quizword">点击“开始测试”</div><div id="quizMeaning" class="muted" style="margin:7px 0"></div><input id="spellAnswer" type="text" autocomplete="off" placeholder="拼写这个单词……" onkeydown="if(event.key==='Enter')checkSpelling()"><div class="actions" style="margin-top:10px"><button class="btn" onclick="startQuiz()">开始测试</button><button class="btn alt" onclick="checkSpelling()">检查</button><button class="btn alt" onclick="nextQuiz()">下一个</button></div><div id="quizResult" class="result muted">正确率：0%</div></div>
+<div style="margin-top:16px"><h3>我的单词本</h3><div id="wordList" class="wordgrid"></div></div></section>
+<section id="international" class="panel card"><h2>🌍 International · 交换与海外路线</h2><p class="muted">大一开始积累，而不是等申请季才准备。核心资产：GPA + English + 项目/科研 + 推荐信 + 国际经历。</p><div class="tree"><div class="node"><b>交换</b><small>目标学校、GPA、语言、申请窗口、文书、推荐信、面试、奖学金</small></div><div class="node"><b>海外暑研</b><small>提前关注教授、研究方向、项目与科研输出</small></div><div class="node"><b>国际实习</b><small>英文简历、作品集、技术能力、面试</small></div><div class="node"><b>长期海外</b><small>硕士/博士 → 海外工作 / 国际化职业</small></div></div><div class="card" style="margin-top:14px"><h3>目标学校追踪</h3><div class="actions"><button class="btn" onclick="addSchool()">＋ 添加学校</button></div><div id="schoolList"></div></div></section>
+
+<section id="skills" class="panel card"><h2>🧠 Skill Tree · 能力资本</h2><p class="muted">不以“看过课程”计分，而以“能否独立做出结果”计分。</p><div id="skillList"></div></section>
+
+<section id="tech" class="panel card"><h2>💻 AI / 编程</h2><div class="tree"><div class="node"><b>Python</b><small>语法 → 数据分析 → 自动化 → API</small></div><div class="node"><b>AI</b><small>LLM → Prompt → API → Agent → 工作流</small></div><div class="node"><b>工程</b><small>Git/GitHub → HTML/CSS/JS → SQL → 部署</small></div><div class="node"><b>技术作品</b><small>每学一个能力，尽量做成一个可展示的项目</small></div></div><div class="card" style="margin-top:14px"><h3>建议主项目：MY LIFE OS</h3><p>把这个网站持续做成真正可用的个人系统，并把它作为 GitHub Portfolio。以后再加入数据分析、AI助手、学习统计等功能。</p></div></section>
+
+<section id="projects" class="panel card"><h2>🧪 Projects · Portfolio</h2><p class="muted">把知识变成作品。项目最终要回答：解决了什么问题？用了什么技术？产生了什么结果？</p><div class="actions"><button class="btn" onclick="addProject()">＋ 新项目</button></div><div id="projectList" class="resources" style="margin-top:12px"></div></section>
 
 <section id="today" class="panel active card"><h2>✅ 今日任务</h2><div class="tasks" id="tasks"></div><div class="actions" style="margin-top:15px"><button class="btn alt" onclick="resetTasks()">重置今日任务</button></div></section>
 
@@ -99,7 +116,47 @@ table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;pad
 <div class="node"><b>复盘</b><small>错词 → 3日/7日/14日再测</small></div>
 </div></section>
 
-<section id="resources" class="panel card"><h2>📚 资料库 3.1</h2><p class="muted">现在支持<strong>真正打开文件</strong>：把 PDF / Word / 图片导入本机浏览器后，文件会保存在浏览器的 IndexedDB 中。以后点击“打开”即可再次查看；不会上传到 GitHub。</p><div class="actions" style="margin:12px 0"><label class="btn">＋ 导入资料 <input id="filePicker" type="file" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.md,.jpg,.jpeg,.png,.webp" style="display:none"></label><button class="btn alt" onclick="openResourceModal()">＋ 添加外部链接</button><button class="btn alt" onclick="document.getElementById('resourceSearch').focus()">⌕ 搜索资料</button></div><input id="resourceSearch" class="search" placeholder="搜索：数学、英语、真题、专题、词汇……" oninput="renderResources()"><div id="importStatus" class="muted" style="margin-top:8px"></div><div class="resources" id="resourcesList"></div></section>
+<section id="resources" class="panel card"><h2>📚 我的资料库</h2><p class="muted">把你搜集到的 <strong>PDF / Word / PPT / TXT / Markdown / 图片</strong> 都放进来，也可以直接写笔记。资料只保存在<strong>当前浏览器本机</strong>的 IndexedDB，不会自动上传到 GitHub。</p>
+<div class="actions" style="margin:12px 0"><label class="btn">＋ 上传资料 <input id="filePicker" type="file" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.md,.jpg,.jpeg,.png,.webp,.gif" style="display:none"></label><button class="btn alt" onclick="openTextResourceModal()">＋ 新建文字资料</button><button class="btn alt" onclick="openResourceModal()">＋ 添加外部链接</button><button class="btn alt" onclick="openCategoryModal()">⚙ 管理分类</button></div>
+<div class="actions" style="margin-bottom:10px"><select id="resourceCategoryFilter" onchange="renderResources()" style="max-width:220px"><option value="">全部分类</option></select><input id="resourceSearch" class="search" style="flex:1;min-width:220px" placeholder="搜索资料名称、说明、文字内容……" oninput="renderResources()"></div>
+<div id="importStatus" class="muted" style="margin-top:8px"></div><div class="resources" id="resourcesList"></div></section>
+
+<section id="finance" class="panel card"><h2>📈 财经 · 金融 · 投资学习中心</h2>
+<p class="muted">目标不是“学会追涨杀跌”，而是建立一套能自己判断资产、公司、风险和市场的框架。这里以学习和模拟为主，不构成投资建议。</p>
+<div class="tree">
+<div class="node"><b>① 金融基础</b><small>货币、利率、通胀、债券、股票、基金、ETF、汇率</small></div>
+<div class="node"><b>② 投资框架</b><small>收益与风险、复利、资产配置、分散化、长期投资</small></div>
+<div class="node"><b>③ 股票研究</b><small>商业模式、护城河、收入、利润、现金流、ROE、估值</small></div>
+<div class="node"><b>④ 财报阅读</b><small>资产负债表、利润表、现金流量表、财务比率</small></div>
+<div class="node"><b>⑤ 市场与宏观</b><small>美联储、央行、GDP、CPI、就业、周期、流动性</small></div>
+<div class="node"><b>⑥ 行为金融</b><small>损失厌恶、从众、FOMO、确认偏误、过度自信</small></div>
+<div class="node"><b>⑦ 量化入门</b><small>收益率、波动率、相关性、回撤、Sharpe、简单回测</small></div>
+<div class="node"><b>⑧ 风险控制</b><small>仓位、最大回撤、流动性、杠杆、止损与风险预算</small></div>
+</div>
+<div class="card" style="margin-top:15px"><h2>🎓 建议学习顺序</h2><ol><li>先学金融基本概念，再学股票和基金。</li><li>学会读三大财务报表，再研究单家公司。</li><li>理解估值：PE、PB、EV/EBITDA、DCF，以及这些指标的局限。</li><li>学习资产配置与风险控制，再接触短线和技术分析。</li><li>最后再做量化：用历史数据验证想法，而不是凭感觉交易。</li></ol></div>
+<div class="card" style="margin-top:15px"><h2>🌐 高质量学习入口</h2><div class="actions">
+<a class="btn alt" href="https://www.investor.gov/introduction-investing" target="_blank">Investor.gov 投资基础</a>
+<a class="btn alt" href="https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work" target="_blank">股票市场怎么运作</a>
+<a class="btn alt" href="https://www.investor.gov/research-you-invest" target="_blank">投资前研究</a>
+<a class="btn alt" href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks" target="_blank">股票基础</a>
+<a class="btn alt" href="https://www.investor.gov/introduction-investing/investing-basics/save-and-invest/learn-about-investment-options" target="_blank">资产类别</a>
+</div><p class="muted" style="margin-top:10px">官方投资教育资源强调：投资有风险，应先研究、理解费用与风险，不应仅凭他人的股票提示做决定。</p></div>
+<div class="card" style="margin-top:15px"><h2>📝 投资学习日志</h2><textarea id="financeNote" rows="6" placeholder="记录今天学到的概念：例如“为什么利率上升通常会影响估值？”
+记录公司研究：商业模式 / 风险 / 估值假设 / 反证。"></textarea><div class="actions" style="margin-top:10px"><button class="btn" onclick="saveFinanceNote()">保存学习笔记</button><button class="btn alt" onclick="loadFinanceNote()">读取笔记</button></div></div>
+</section>
+
+<section id="frontier" class="panel card"><h2>🔬 国际前沿 · 科学论文入口</h2>
+<p class="muted">把“知道新闻”升级成“读懂论文”：先看摘要和图表，再追方法、数据、限制与引用。不要只看标题判断结论。</p>
+<div class="resources">
+<div class="resource"><b>arXiv</b><small class="muted">物理、数学、计算机科学、AI 等领域的重要预印本平台。</small><div class="actions"><a class="btn small" href="https://arxiv.org/" target="_blank">进入</a></div></div>
+<div class="resource"><b>Nature</b><small class="muted">顶级综合科学期刊与研究新闻，可追踪最新研究。</small><div class="actions"><a class="btn small" href="https://www.nature.com/" target="_blank">进入</a></div></div>
+<div class="resource"><b>Nature Research Articles</b><small class="muted">直接浏览研究论文，可按年份和文章类型筛选。</small><div class="actions"><a class="btn small" href="https://www.nature.com/nature/research-articles" target="_blank">研究论文</a></div></div>
+<div class="resource"><b>Semantic Scholar</b><small class="muted">AI 辅助学术检索，可看论文、引用关系和部分全文入口。</small><div class="actions"><a class="btn small" href="https://www.semanticscholar.org/" target="_blank">进入</a></div></div>
+<div class="resource"><b>Google Scholar</b><small class="muted">广泛检索论文、学位论文、书籍与引用。</small><div class="actions"><a class="btn small" href="https://scholar.google.com/" target="_blank">进入</a></div></div>
+</div>
+<div class="card" style="margin-top:15px"><h2>🧠 你的前沿科学阅读路线</h2><div class="tree"><div class="node"><b>AI / 大模型</b><small>Transformer、Agent、推理、AI for Science</small></div><div class="node"><b>生物 / 医学</b><small>基因编辑、蛋白质、细胞模型、再生医学</small></div><div class="node"><b>能源 / 材料</b><small>电池、光伏、核聚变、新材料</small></div><div class="node"><b>物理 / 数学</b><small>量子信息、复杂系统、计算数学</small></div><div class="node"><b>机器人 / 芯片</b><small>具身智能、先进制造、半导体</small></div><div class="node"><b>经济 / 金融</b><small>金融科技、AI+金融、宏观与市场结构</small></div></div></div>
+<div class="card" style="margin-top:15px"><h2>📖 一篇论文怎么读</h2><ol><li><b>5分钟：</b>标题 → 摘要 → 图表 → 结论。</li><li><b>15分钟：</b>明确研究问题、数据、方法和核心结果。</li><li><b>30分钟：</b>挑一个关键实验/公式深入理解。</li><li><b>最后：</b>写下“作者证明了什么 / 没证明什么 / 下一步能做什么”。</li></ol></div>
+</section>
 
 <section id="mistakes" class="panel card"><h2>❌ 错题本</h2>
 <div class="actions"><button class="btn" onclick="openMistake()">+ 记录错题</button></div>
@@ -108,6 +165,8 @@ table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;pad
 
 <section id="review" class="panel card"><h2>🔁 间隔复习队列</h2><p class="muted">默认采用 1 → 3 → 7 → 14 → 30 天节奏。错题录入后会自动进入队列。</p><div id="reviewList"></div></section>
 
+<section id="favorites" class="panel card"><h2>🌐 我的原始收藏夹</h2><p class="muted">原来的网页收藏全部保留。私人 iCloud/token 链接不在这里公开保存，只保留安全的 iCloud 首页入口。</p><div class="resources" id="favoriteList"></div></section>
+
 <section id="settings" class="panel card"><h2>⚙️ 设置</h2>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>CMC 考试日期</label><input type="date" id="cmcDate"></div><div><label>插班生目标日期</label><input type="date" id="transferDate"></div></div>
 <div class="actions" style="margin-top:15px"><button class="btn" onclick="saveDates()">保存日期</button><button class="btn alt" onclick="clearDates()">清空日期</button><button class="btn alt" onclick="clearAll()">清空本机学习数据</button></div>
@@ -115,6 +174,8 @@ table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;pad
 </section>
 </div>
 
+<div class="modal" id="textResourceModal"><div class="modalbox"><h3>新建文字资料</h3><label>标题</label><input id="tName" placeholder="例如：AI Agent 学习笔记"><label style="display:block;margin-top:10px">分类</label><select id="tCategory"></select><label style="display:block;margin-top:10px">标签 / 说明</label><input id="tDesc" placeholder="例如：AI / 论文 / 核心概念"><label style="display:block;margin-top:10px">正文</label><textarea id="tContent" rows="12" placeholder="把你搜集到的文字、摘要、思考、摘录放在这里……"></textarea><div class="actions" style="margin-top:12px"><button class="btn" onclick="saveTextResource()">保存</button><button class="btn alt" onclick="closeTextResourceModal()">取消</button></div></div></div>
+<div class="modal" id="categoryModal"><div class="modalbox"><h3>管理资料分类</h3><p class="muted">分类完全由你自己定义。删除分类不会删除资料，只会把这些资料移到“未分类”。</p><div class="actions"><input id="newCategoryName" placeholder="新分类，例如：交换申请" style="flex:1"><button class="btn" onclick="addCategory()">＋ 添加</button></div><div id="categoryList" style="margin-top:12px"></div><div class="actions" style="margin-top:14px"><button class="btn alt" onclick="closeCategoryModal()">关闭</button></div></div></div>
 <div class="modal" id="resourceModal"><div class="modalbox"><h3>添加外部资料链接</h3><label>资料名称</label><input id="rName" placeholder="例如：复旦数学真题 2025"><label style="display:block;margin-top:10px">说明</label><input id="rDesc" placeholder="例如：历年真题 / 专题讲义"><label style="display:block;margin-top:10px">链接</label><input id="rUrl" type="url" placeholder="https://..."><div class="actions" style="margin-top:12px"><button class="btn" onclick="saveResourceLink()">保存</button><button class="btn alt" onclick="closeResourceModal()">取消</button></div></div></div>
 
 <div class="modal" id="modal"><div class="modalbox"><h3>记录错题</h3>
@@ -135,13 +196,13 @@ const RES=[
 ];
 const MATH=["极限","数列极限","中值定理证明","高阶导数","不定/定积分","微分方程","参数方程","多元函数","隐函数","极值与不等式","二重积分","曲线/曲面积分","无穷级数","线性代数","矩阵与特征值","空间解析几何","综合证明题"];
 let state=JSON.parse(localStorage.studyOS3||"{}");
-state.tasks=state.tasks||Array(TASKS.length).fill(false);state.mistakes=state.mistakes||[];state.pom=state.pom||0;state.hours=state.hours||0;
+state.tasks=state.tasks||Array(TASKS.length).fill(false);state.mistakes=state.mistakes||[];state.pom=state.pom||0;state.hours=state.hours||0;state.words=state.words||[];state.wordStats=state.wordStats||{correct:0,total:0};state.lang=state.lang||localStorage.lifeOSLang||"zh";
 function save(){localStorage.studyOS3=JSON.stringify(state);render();}
 function render(){
 document.getElementById("tasks").innerHTML=TASKS.map((x,i)=>`<div class="task ${state.tasks[i]?'done':''}"><input type="checkbox" ${state.tasks[i]?'checked':''} onchange="toggleTask(${i})"><label><b>${x[0]}</b> · ${x[1]}</label><span class="tag">${i<2?'高优先级':i<5?'主线':'复盘'}</span></div>`).join("");
 let done=state.tasks.filter(Boolean).length,p=Math.round(done/TASKS.length*100);document.getElementById("taskPct").textContent=p+"%";document.getElementById("taskBar").style.width=p+"%";document.getElementById("doneCount").textContent=done;document.getElementById("pomCount").textContent=state.pom;document.getElementById("mistakeCount").textContent=state.mistakes.length;document.getElementById("hours").textContent=(state.hours||0).toFixed(1);document.getElementById("reviewCount").textContent=state.mistakes.filter(m=>new Date(m.next)<=new Date()).length;
 document.getElementById("mathTree").innerHTML=MATH.map(x=>`<div class="node"><b>${x}</b><small>未开始 · 做题后可在错题本追踪</small></div>`).join("");
-renderResources();
+renderResources();renderWords();
 document.getElementById("mistakesTable").innerHTML=state.mistakes.length?state.mistakes.map((m,i)=>`<tr><td>${m.date}</td><td>${m.subject}</td><td>${m.type}</td><td>${m.reason}</td><td>${m.next}</td><td><button class="btn small alt" onclick="delMistake(${i})">删除</button></td></tr>`).join(""):"<tr><td colspan=6 class=muted>还没有错题。第一次做错并认真记录，才是系统真正开始学习的时候。</td></tr>";
 document.getElementById("reviewList").innerHTML=state.mistakes.length?state.mistakes.map((m,i)=>`<div class="card" style="margin:8px 0"><b>${m.subject} · ${m.type}</b><div>${m.reason}</div><small class="muted">下次复习：${m.next}</small></div>`).join(""):"<p class=muted>暂无复习任务。</p>";
 }
@@ -162,25 +223,12 @@ function clearDates(){localStorage.removeItem("cmcDate");localStorage.removeItem
 function clearAll(){if(confirm("确定清空本机全部学习数据？")){localStorage.removeItem("studyOS3");location.reload()}}
 function clock(){document.getElementById("clock").textContent=new Date().toLocaleString("zh-CN",{hour12:false})}
 
-const DB_NAME="myStudyOS31Files", DB_VERSION=1, STORE="resources";
+const DB_NAME="myLifeOS41Files", DB_VERSION=1, STORE="resources";
+const DEFAULT_CATEGORIES=["数学","英语","CMC","插班生","AI / 编程","科研 / 论文","交换 / 国际","财经金融","生活","其他"];
 const RESOURCE_FILES={
-"插班生数学考前必刷": ["插班生数学考前必刷","真题 / 高频题型"],
-"复旦2016—2025历年真题":["复旦2016—2025历年真题","核心真题层"],
-"同达数学一月模拟":["同达数学一月模拟","阶段模拟"],
-"同达数学三月模拟":["同达数学三月模拟","阶段模拟 + 答案"],
-"同达数学四月模考":["同达数学四月模考","阶段模考"],
-"同达数学五月模考一/二/三轮":["同达数学五月模考一/二/三轮","考前综合模考"],
-"科兴复旦数学阶段测试/仿真卷":["科兴复旦数学阶段测试/仿真卷","模拟训练层"],
-"同达数学专题讲义":["同达数学专题讲义","极限 / 数列 / 中值定理 / 级数 / 不等式 / 多元等"],
-"插班生语法与词汇2000题":["插班生语法与词汇2000题","词汇语法训练"],
-"985英语词汇语法":["985英语词汇语法","高阶词汇语法"],
-"985阅读同义词替换":["985阅读同义词替换","阅读定位与同义改写"],
-"专四词汇语法详细解答":["专四词汇语法详细解答","高阶语法词汇"],
-"插班生英语高频词汇":["插班生英语高频词汇","词汇主线"],
-"四六级仔细阅读解题技巧":["四六级仔细阅读解题技巧","阅读方法"],
-"四六级冲刺必背词汇&短语":["四六级冲刺必背词汇&短语","词汇短语"],
-"四六级写作10大话题 + 翻译20篇 + 高频写作短语":["四六级写作10大话题 + 翻译20篇 + 高频写作短语","输出训练"]
-};
+"插班生数学考前必刷":["插班生数学考前必刷","真题 / 高频题型","数学"],"复旦2016—2025历年真题":["复旦2016—2025历年真题","核心真题层","插班生"],"同达数学一月模拟":["同达数学一月模拟","阶段模拟","数学"],"同达数学三月模拟":["同达数学三月模拟","阶段模拟 + 答案","数学"],"同达数学四月模考":["同达数学四月模考","阶段模考","数学"],"同达数学五月模考一/二/三轮":["同达数学五月模考一/二/三轮","考前综合模考","数学"],"科兴复旦数学阶段测试/仿真卷":["科兴复旦数学阶段测试/仿真卷","模拟训练层","数学"],"同达数学专题讲义":["同达数学专题讲义","极限 / 数列 / 中值定理 / 级数 / 不等式 / 多元等","数学"],"插班生语法与词汇2000题":["插班生语法与词汇2000题","词汇语法训练","英语"],"985英语词汇语法":["985英语词汇语法","高阶词汇语法","英语"],"985阅读同义词替换":["985阅读同义词替换","阅读定位与同义改写","英语"],"专四词汇语法详细解答":["专四词汇语法详细解答","高阶语法词汇","英语"],"插班生英语高频词汇":["插班生英语高频词汇","词汇主线","英语"],"四六级仔细阅读解题技巧":["四六级仔细阅读解题技巧","阅读方法","英语"],"四六级冲刺必背词汇&短语":["四六级冲刺必背词汇&短语","词汇短语","英语"],"四六级写作10大话题 + 翻译20篇 + 高频写作短语":["四六级写作10大话题 + 翻译20篇 + 高频写作短语","输出训练","英语"]};
+function getCategories(){try{return JSON.parse(localStorage.resourceCategories||'null')||DEFAULT_CATEGORIES.slice()}catch(e){return DEFAULT_CATEGORIES.slice()}}
+function setCategories(a){localStorage.resourceCategories=JSON.stringify(a)}
 function dbOpen(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,DB_VERSION);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE,{keyPath:"id"})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
 async function dbPut(obj){const db=await dbOpen();return new Promise((res,rej)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).put(obj);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
 async function dbGet(id){const db=await dbOpen();return new Promise((res,rej)=>{const r=db.transaction(STORE).objectStore(STORE).get(id);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
@@ -188,14 +236,62 @@ async function dbAll(){const db=await dbOpen();return new Promise((res,rej)=>{co
 async function dbDelete(id){const db=await dbOpen();return new Promise((res,rej)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).delete(id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
 function rid(name){return "r_"+btoa(unescape(encodeURIComponent(name))).replace(/[^a-zA-Z0-9]/g,"").slice(0,80)}
 function safe(t){return String(t||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
-function renderResources(){dbAll().then(items=>{const q=(document.getElementById("resourceSearch")?.value||"").toLowerCase().trim();const all=[...RES.map(x=>({id:rid(x[0]),name:x[0],desc:x[1]})),...items.filter(x=>x.custom).map(x=>({id:x.id,name:x.name,desc:x.desc,url:x.url,fileName:x.fileName,custom:true}))];const seen=new Set();const list=all.filter(x=>{if(seen.has(x.id))return false;seen.add(x.id);return !q||(x.name+x.desc).toLowerCase().includes(q)});document.getElementById("resourcesList").innerHTML=list.map(x=>`<div class="resource"><b>${safe(x.name)}</b><small class="muted">${safe(x.desc)}</small><div class="resource-meta">${x.fileName?"已导入： "+safe(x.fileName):x.url?"外部链接":"尚未导入本地文件"}</div><div class="actions"><button class="btn small" onclick="openResource('${x.id}')">打开</button><label class="btn small alt">${x.fileName?"更换文件":"导入文件"}<input type="file" style="display:none" onchange="attachFile('${x.id}','${safe(x.name)}',this.files[0])"></label>${x.custom?`<button class="btn small alt" onclick="removeResource('${x.id}')">删除</button>`:""}</div></div>`).join("")||'<p class="muted">没有匹配的资料。</p>'}).catch(console.error)}
-async function attachFile(id,name,file){if(!file)return;await dbPut({id,name,desc:(RESOURCE_FILES[name]?.[1]||"自定义资料"),fileName:file.name,file,updatedAt:Date.now(),custom:false});document.getElementById("importStatus").textContent="已导入："+file.name;renderResources()}
-async function openResource(id){const x=await dbGet(id);if(x?.file){const u=URL.createObjectURL(x.file);window.open(u,"_blank");setTimeout(()=>URL.revokeObjectURL(u),60000);return}if(x?.url){window.open(x.url,"_blank");return}alert("这份资料还没有导入。点击“导入文件”选择你电脑上的 PDF / Word 文件即可。")}
-function openResourceModal(){document.getElementById("resourceModal").classList.add("show")}
-function closeResourceModal(){document.getElementById("resourceModal").classList.remove("show")}
-async function saveResourceLink(){const name=document.getElementById("rName").value.trim(),desc=document.getElementById("rDesc").value.trim(),url=document.getElementById("rUrl").value.trim();if(!name||!url)return alert("请填写名称和链接");await dbPut({id:rid(name),name,desc:desc||"外部资料",url,custom:true,updatedAt:Date.now()});closeResourceModal();document.getElementById("rName").value="";document.getElementById("rDesc").value="";document.getElementById("rUrl").value="";renderResources()}
-async function removeResource(id){if(confirm("删除这条自定义资料？")){await dbDelete(id);renderResources()}}
-document.getElementById("filePicker").addEventListener("change",async e=>{const fs=[...e.target.files];for(const file of fs){const match=Object.keys(RESOURCE_FILES).find(k=>file.name.includes(k.replace(/[—/]/g,""))||file.name.includes(k.split(" ")[0]));const name=match||file.name.replace(/\.[^.]+$/,'');await dbPut({id:rid(name),name,desc:match?RESOURCE_FILES[match][1]:"导入资料",fileName:file.name,file,updatedAt:Date.now(),custom:!match})}document.getElementById("importStatus").textContent=fs.length?`已导入 ${fs.length} 个文件。`:"";e.target.value="";renderResources()});
-clock();setInterval(clock,1000);updateDates();render();
+function escapeAttr(t){return safe(t).replace(/`/g,'&#96;')}
+function renderCategoryControls(){const cats=getCategories();const f=document.getElementById('resourceCategoryFilter'),tc=document.getElementById('tCategory');if(f){const old=f.value;f.innerHTML='<option value="">全部分类</option>'+cats.map(c=>`<option value="${escapeAttr(c)}">${safe(c)}</option>`).join('');f.value=cats.includes(old)?old:''}if(tc){tc.innerHTML='<option value="">未分类</option>'+cats.map(c=>`<option value="${escapeAttr(c)}">${safe(c)}</option>`).join('')}}
+function openTextResourceModal(){renderCategoryControls();document.getElementById('textResourceModal').classList.add('show')}
+function closeTextResourceModal(){document.getElementById('textResourceModal').classList.remove('show')}
+function openCategoryModal(){renderCategoryList();document.getElementById('categoryModal').classList.add('show')}
+function closeCategoryModal(){document.getElementById('categoryModal').classList.remove('show')}
+function renderCategoryList(){const el=document.getElementById('categoryList');if(!el)return;el.innerHTML=getCategories().map(c=>`<div class="task"><span>${safe(c)}</span><button class="btn small alt" onclick="deleteCategory('${escapeAttr(c)}')">删除</button></div>`).join('')}
+function addCategory(){const input=document.getElementById('newCategoryName'),n=input.value.trim();if(!n)return;if(getCategories().includes(n))return alert('这个分类已经存在');setCategories([...getCategories(),n]);input.value='';renderCategoryList();renderCategoryControls();renderResources()}
+async function deleteCategory(c){if(!confirm(`删除分类“${c}”？资料不会删除，会变成未分类。`))return;setCategories(getCategories().filter(x=>x!==c));const items=await dbAll();for(const x of items){if(x.category===c){x.category='';await dbPut(x)}}renderCategoryList();renderCategoryControls();renderResources()}
+function resourceCard(x){const cat=x.category||'未分类';const type=x.file?'本地文件':x.content?'文字资料':x.url?'外部链接':'待导入';const meta=[cat,type,x.fileName||''].filter(Boolean).join(' · ');const preview=x.content?`<div class="resource-preview">${safe(x.content).slice(0,180)}${x.content.length>180?'…':''}</div>`:'';return `<div class="resource"><b>${safe(x.name)}</b><small class="muted">${safe(x.desc||'')}</small><div class="resource-meta">${safe(meta)}</div>${preview}<div class="actions"><button class="btn small" onclick="openResource('${escapeAttr(x.id)}')">打开</button><button class="btn small alt" onclick="editResource('${escapeAttr(x.id)}')">编辑</button>${x.file?`<label class="btn small alt">更换<input type="file" style="display:none" onchange="replaceFile('${escapeAttr(x.id)}',this.files[0])"></label>`:x.url?'':`<label class="btn small alt">上传文件<input type="file" style="display:none" onchange="attachFile('${escapeAttr(x.id)}','${escapeAttr(x.name)}',this.files[0])"></label>`}${x.custom?`<button class="btn small alt" onclick="removeResource('${escapeAttr(x.id)}')">删除</button>`:''}</div></div>`}
+async function renderResources(){renderCategoryControls();const items=await dbAll();const built=RES.map(x=>({id:rid(x[0]),name:x[0],desc:x[1],category:'',custom:false}));const all=[...built,...items];const q=(document.getElementById('resourceSearch')?.value||'').toLowerCase().trim(),cat=document.getElementById('resourceCategoryFilter')?.value||'';const seen=new Set();const list=all.filter(x=>{if(seen.has(x.id))return false;seen.add(x.id);const hay=(x.name+' '+(x.desc||'')+' '+(x.content||'')).toLowerCase();return (!q||hay.includes(q))&&(!cat||x.category===cat)});document.getElementById('resourcesList').innerHTML=list.map(resourceCard).join('')||'<p class="muted">没有匹配的资料。上传第一份资料，建立属于你的个人知识库。</p>')}
+async function attachFile(id,name,file,category=''){if(!file)return;const old=await dbGet(id)||{};await dbPut({...old,id,name,desc:old.desc||'自定义资料',category:old.category||category,fileName:file.name,file,updatedAt:Date.now(),custom:old.custom??true});document.getElementById('importStatus').textContent='已保存：'+file.name;renderResources()}
+async function replaceFile(id,file){if(!file)return;const old=await dbGet(id);if(old){old.file=file;old.fileName=file.name;old.updatedAt=Date.now();await dbPut(old);document.getElementById('importStatus').textContent='已更换：'+file.name;renderResources()}}
+async function openResource(id){const x=await dbGet(id);if(x?.file){const u=URL.createObjectURL(x.file);window.open(u,'_blank');setTimeout(()=>URL.revokeObjectURL(u),60000);return}if(x?.content){const w=window.open('','_blank');if(w){w.document.write('<!doctype html><meta charset="utf-8"><title>'+safe(x.name)+'</title><style>body{font-family:system-ui,Microsoft YaHei;max-width:900px;margin:40px auto;padding:0 20px;line-height:1.8;white-space:pre-wrap}h1{border-bottom:2px solid #111;padding-bottom:12px}
+.wordgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.word-card{border:1px solid #bbb;padding:14px}.word-card .word{font-size:25px;font-weight:800}.quizbox{border:2px solid #111;padding:18px;margin-top:14px}.quizword{font-size:38px;font-weight:800;letter-spacing:.03em}.result{padding:10px;border:1px solid #bbb;margin-top:10px;min-height:42px}.lang-switch{display:flex;gap:4px;align-items:center}.lang-switch button{padding:5px 9px;border:1px solid #111;background:#fff}.lang-switch button.active{background:#111;color:#fff}
+@media(max-width:650px){.wordgrid{grid-template-columns:1fr}}
+</style><h1>'+safe(x.name)+'</h1><div>'+safe(x.content)+'</div>');w.document.close()}return}if(x?.url){window.open(x.url,'_blank');return}alert('这份资料还没有内容。')}
+async function editResource(id){const x=await dbGet(id);if(!x)return;const name=prompt('资料名称',x.name);if(name===null)return;const desc=prompt('说明 / 标签',x.desc||'');const cats=getCategories();const cat=prompt('分类（可输入已有或新分类）',x.category||'');if(cat&& !cats.includes(cat)){setCategories([...cats,cat])}x.name=name.trim()||x.name;x.desc=desc===null?x.desc:desc;x.category=cat||'';x.custom=true;await dbPut(x);renderResources()}
+function openResourceModal(){document.getElementById('resourceModal').classList.add('show')}
+function closeResourceModal(){document.getElementById('resourceModal').classList.remove('show')}
+async function saveResourceLink(){const name=document.getElementById('rName').value.trim(),desc=document.getElementById('rDesc').value.trim(),url=document.getElementById('rUrl').value.trim();if(!name||!url)return alert('请填写名称和链接');await dbPut({id:rid(name),name,desc:desc||'外部资料',url,category:'',custom:true,updatedAt:Date.now()});closeResourceModal();document.getElementById('rName').value='';document.getElementById('rDesc').value='';document.getElementById('rUrl').value='';renderResources()}
+async function saveTextResource(){const name=document.getElementById('tName').value.trim(),desc=document.getElementById('tDesc').value.trim(),content=document.getElementById('tContent').value,category=document.getElementById('tCategory').value;if(!name||!content.trim())return alert('至少填写标题和正文');await dbPut({id:rid(name),name,desc:desc||'文字资料',content,category,custom:true,updatedAt:Date.now()});closeTextResourceModal();['tName','tDesc','tContent'].forEach(id=>document.getElementById(id).value='');renderResources()}
+async function removeResource(id){if(confirm('删除这条自定义资料？')){await dbDelete(id);renderResources()}}
+document.getElementById('filePicker').addEventListener('change',async e=>{const fs=[...e.target.files];for(const file of fs){const match=Object.keys(RESOURCE_FILES).find(k=>file.name.includes(k.replace(/[—/]/g,''))||file.name.includes(k.split(' ')[0]));const name=match||file.name.replace(/\.[^.]+$/,'');const info=match?RESOURCE_FILES[match]:[name,'导入资料',''];await dbPut({id:rid(name),name,desc:info[1],category:info[2]||'',fileName:file.name,file,updatedAt:Date.now(),custom:!match})}document.getElementById('importStatus').textContent=fs.length?`已导入 ${fs.length} 个文件。`:' ';e.target.value='';renderResources()});
+
+let quizIndex=-1;
+function addWord(){const word=document.getElementById('wordInput').value.trim();const meaning=document.getElementById('meaningInput').value.trim();const example=document.getElementById('exampleInput').value.trim();const category=document.getElementById('wordCategoryInput').value.trim();if(!word||!meaning)return alert(state.lang==='en'?'Please enter a word and its meaning.':'请填写单词和中文释义。');const key=word.toLowerCase();const old=state.words.find(x=>x.word.toLowerCase()===key);if(old){old.meaning=meaning;old.example=example;old.category=category;old.updatedAt=Date.now()}else state.words.push({word,meaning,example,category,createdAt:Date.now(),correct:0,wrong:0});['wordInput','meaningInput','exampleInput','wordCategoryInput'].forEach(id=>document.getElementById(id).value='');save();alert(state.lang==='en'?'Word saved.':'单词已保存。')}
+function renderWords(){const el=document.getElementById('wordList');if(!el)return;el.innerHTML=state.words.map((x,i)=>`<div class="word-card"><div class="word">${safe(x.word)}</div><div>${safe(x.meaning)}</div>${x.example?`<small class="muted">${safe(x.example)}</small>`:''}<div class="resource-meta">${safe(x.category||'未分类')} · ✓ ${x.correct||0} · ✕ ${x.wrong||0}</div><div class="actions"><button class="btn small alt" onclick="editWord(${i})">编辑</button><button class="btn small alt" onclick="deleteWord(${i})">删除</button></div></div>`).join('')||'<p class="muted">还没有单词。添加你的第一批词汇吧。</p>';const q=document.getElementById('quizResult');if(q){const t=state.wordStats.total||0;q.textContent=(state.lang==='en'?'Accuracy: ':'正确率：')+(t?Math.round(state.wordStats.correct/t*100):0)+'%'} }
+function editWord(i){const x=state.words[i];const w=prompt('单词',x.word);if(w===null)return;const m=prompt('中文释义',x.meaning);if(m===null)return;x.word=w.trim()||x.word;x.meaning=m.trim()||x.meaning;x.example=prompt('例句（可选）',x.example||'')??x.example;x.category=prompt('分类（可选）',x.category||'')??x.category;save()}
+function deleteWord(i){if(confirm(state.lang==='en'?'Delete this word?':'删除这个单词？')){state.words.splice(i,1);save();if(quizIndex>=state.words.length)quizIndex=-1}}
+function startQuiz(){if(!state.words.length)return alert(state.lang==='en'?'Add some words first.':'请先添加一些单词。');nextQuiz()}
+function nextQuiz(){if(!state.words.length)return;quizIndex=Math.floor(Math.random()*state.words.length);const x=state.words[quizIndex];document.getElementById('quizWord').textContent='';document.getElementById('quizMeaning').textContent=(state.lang==='en'?'Meaning: ':'释义：')+x.meaning;document.getElementById('spellAnswer').value='';document.getElementById('quizResult').textContent=state.lang==='en'?'Type the spelling and press Check.':'输入拼写后点击检查。';document.getElementById('spellAnswer').focus()}
+function checkSpelling(){if(quizIndex<0)return startQuiz();const x=state.words[quizIndex],ans=document.getElementById('spellAnswer').value.trim().toLowerCase();if(!ans)return;state.wordStats.total++;if(ans===x.word.toLowerCase()){state.wordStats.correct++;x.correct=(x.correct||0)+1;document.getElementById('quizResult').textContent=state.lang==='en'?'✓ Correct!':'✓ 正确！'}else{x.wrong=(x.wrong||0)+1;document.getElementById('quizResult').textContent=(state.lang==='en'?'✕ Correct spelling: ':'✕ 正确拼写：')+x.word}save();}
+function importWordsPrompt(){const raw=prompt(state.lang==='en'?'One word per line. Format: word | meaning | example | category':'每行一个单词，格式：单词 | 中文释义 | 例句 | 分类');if(!raw)return;raw.split(/\n/).map(s=>s.trim()).filter(Boolean).forEach(line=>{const a=line.split('|').map(s=>s.trim());const word=a[0];if(!word)return;const old=state.words.find(x=>x.word.toLowerCase()===word.toLowerCase());const obj={word,meaning:a[1]||'',example:a[2]||'',category:a[3]||'',createdAt:Date.now(),correct:0,wrong:0};if(old)Object.assign(old,obj);else state.words.push(obj)});save();alert(state.lang==='en'?'Words imported.':'单词导入完成。')}
+const LANG_TEXT={
+'zh':{},'en':{'今日任务':'Today','目标':'Goals','数学知识树':'Math Tree','英语路线':'English','✍️ 单词拼写':'✍️ Spelling','🌍 交换':'🌍 International','🧠 能力资本':'🧠 Skills','💻 AI/编程':'💻 AI / Coding','🧪 项目':'🧪 Projects','资料库':'Resources','财经金融':'Finance','前沿科学':'Frontier Science','错题本':'Mistakes','复习队列':'Review Queue','🌐 收藏':'🌐 Favorites','设置':'Settings','开始今日任务':'Start Today','复盘错题':'Review Mistakes','打开资料库':'Open Resources','🎯 双主线倒计时':'🎯 Dual Countdown','📈 学习统计':'📈 Study Stats','🧭 阶段路线':'🧭 Roadmap','⏱️ 25 分钟番茄钟':'⏱️ 25-min Pomodoro','🔥 今日优先级':'🔥 Today’s Priorities','📚 我的资料库':'📚 My Library','Abc 英语路线':'Abc English Roadmap','⚙️ 设置':'⚙️ Settings','✍️ Word Spelling · 单词拼写训练':'✍️ Word Spelling Training','我的单词本':'My Word Bank','添加我的单词':'Add a Word','保存单词':'Save Word','批量导入':'Import in Bulk','开始测试':'Start Quiz','检查':'Check','下一个':'Next','编辑':'Edit','删除':'Delete','打开':'Open'}};
+function setLang(lang){state.lang=lang;localStorage.lifeOSLang=lang;document.documentElement.lang=lang==='en'?'en':'zh-CN';document.getElementById('langZh').classList.toggle('active',lang==='zh');document.getElementById('langEn').classList.toggle('active',lang==='en');applyLang();render();renderWords()}
+function applyLang(){const dict=LANG_TEXT[state.lang]||{};document.querySelectorAll('.tab,h1,h2,h3,button').forEach(el=>{if(!el.dataset.i18n)el.dataset.i18n=el.textContent.trim();const key=el.dataset.i18n;el.textContent=dict[key]||key});document.title='MY LIFE OS 4.2'}
+
+function saveFinanceNote(){localStorage.financeNote=document.getElementById("financeNote").value;alert("金融学习笔记已保存到本机")}
+function loadFinanceNote(){document.getElementById("financeNote").value=localStorage.financeNote||""}
+
+const LIFE_FAVS=[['ChatGPT','https://chatgpt.com/'],['知乎','https://www.zhihu.com/'],['小众技术工具库','https://www.xiaozhongjishu.com/'],['iCloud','https://www.icloud.com.cn/'],['高德地图','https://ditu.amap.com/'],['YouTube 电影','https://www.youtube.com/feed/storefront'],['哔哩哔哩','https://www.bilibili.com/'],['X','https://x.com/home']];
+const LIFE_SKILLS=[['数学','能独立解决核心高数/线代问题'],['英语','能读、译、写并在真实语境输出'],['Python','能用代码解决数据/自动化问题'],['AI','能用模型、API、Agent做出应用'],['金融','能读财报、理解估值与风险'],['科研','能读论文、提出问题并复现关键结论'],['沟通','表达、演讲、面试与合作'],['国际化','能在英文环境学习、合作和生活']];
+state.lifeSkills=state.lifeSkills||Object.fromEntries(LIFE_SKILLS.map(x=>[x[0],0]));state.schools=state.schools||[];state.projects=state.projects||[];state.visionNote=state.visionNote||'';
+function saveVision(){state.visionNote=document.getElementById('visionNote').value;save();alert('目标已保存到本机')}
+function addSchool(){const n=prompt('目标学校');if(!n)return;state.schools.push({name:n,status:'待研究',gpa:'',lang:'',deadline:''});save()}
+function renderSchools(){const el=document.getElementById('schoolList');if(!el)return;el.innerHTML=state.schools.map((x,i)=>`<div class="resource"><b>${safe(x.name)}</b><small>状态：${safe(x.status)} · GPA：${safe(x.gpa)||'待查'} · 语言：${safe(x.lang)||'待查'} · 截止：${safe(x.deadline)||'待查'}</small><div class="actions"><button class="btn small alt" onclick="editSchool(${i})">编辑</button><button class="btn small alt" onclick="state.schools.splice(${i},1);save()">删除</button></div></div>`).join('')||'<p class="muted">还没有目标学校。</p>'}
+function editSchool(i){let x=state.schools[i];x.status=prompt('申请状态',x.status)||x.status;x.gpa=prompt('GPA要求',x.gpa)||x.gpa;x.lang=prompt('语言要求',x.lang)||x.lang;x.deadline=prompt('申请截止',x.deadline)||x.deadline;save()}
+function renderSkills(){const el=document.getElementById('skillList');if(!el)return;el.innerHTML=LIFE_SKILLS.map(x=>`<div class="node" style="margin-bottom:9px"><div style="display:flex;justify-content:space-between"><b>${x[0]}</b><b>${state.lifeSkills[x[0]]||0}%</b></div><small>${x[1]}</small><input type="range" min="0" max="100" value="${state.lifeSkills[x[0]]||0}" oninput="state.lifeSkills['${x[0]}']=+this.value;save()" style="width:100%;margin-top:7px"></div>`).join('')}
+function addProject(){let n=prompt('项目名称');if(!n)return;state.projects.push({name:n,problem:'',tech:'',result:'',link:''});save()}
+function renderProjects(){const el=document.getElementById('projectList');if(!el)return;el.innerHTML=state.projects.map((p,i)=>`<div class="resource"><b>${safe(p.name)}</b><small>问题：${safe(p.problem)||'未填写'} · 技术：${safe(p.tech)||'未填写'} · 结果：${safe(p.result)||'未填写'}</small><div class="actions"><button class="btn small" onclick="editProject(${i})">编辑</button><button class="btn small alt" onclick="state.projects.splice(${i},1);save()">删除</button></div></div>`).join('')||'<p class="muted">还没有项目。建议从 MY LIFE OS 本身开始。</p>'}
+function editProject(i){let p=state.projects[i];p.problem=prompt('解决什么问题？',p.problem)||p.problem;p.tech=prompt('使用什么技术？',p.tech)||p.tech;p.result=prompt('结果/数据/成果？',p.result)||p.result;p.link=prompt('GitHub / Demo？',p.link)||p.link;save()}
+function renderFavorites(){const el=document.getElementById('favoriteList');if(!el)return;el.innerHTML=LIFE_FAVS.map(x=>`<div class="resource"><b>${x[0]}</b><small>${x[1]}</small><div class="actions"><a class="btn small" href="${x[1]}" target="_blank">打开 ↗</a></div></div>`).join('')}
+const oldRender=render;render=function(){oldRender();renderSchools();renderSkills();renderProjects();renderFavorites();const v=document.getElementById('visionNote');if(v)v.value=state.visionNote||''}
+
+clock();setInterval(clock,1000);updateDates();setLang(state.lang);
 </script>
 </body></html>
