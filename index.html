@@ -2,98 +2,163 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Links</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MY STUDY OS 3.0</title>
 <style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
-.container{max-width:1050px;margin:0 auto;padding:55px 24px 70px}
-header{text-align:center;margin:15px 0 48px}
-h1{font-size:42px;letter-spacing:-1.5px;margin:0 0 10px;font-weight:700}
-.subtitle{color:#777;font-size:14px}
-.search{max-width:620px;margin:28px auto 0;position:relative}
-.search input{width:100%;height:52px;border:1px solid #ddd;border-radius:14px;padding:0 18px;font-size:15px;outline:none;transition:.2s}
-.search input:focus{border-color:#111;box-shadow:0 0 0 3px #eee}
-.section{margin:38px 0}
-.section-title{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:650;margin-bottom:15px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
-.card{display:flex;align-items:center;gap:12px;padding:15px 16px;border:1px solid #e7e7e7;border-radius:13px;text-decoration:none;color:#111;background:#fff;transition:transform .16s,box-shadow .16s,border-color .16s}
-.card:hover{transform:translateY(-2px);border-color:#bbb;box-shadow:0 7px 22px rgba(0,0,0,.07)}
-.icon{width:34px;height:34px;border-radius:9px;background:#f2f2f2;display:grid;place-items:center;font-size:15px;font-weight:700;flex:none}
-.name{font-size:14px;font-weight:600}.url{font-size:11px;color:#999;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.empty{display:none;text-align:center;color:#888;padding:40px}
-footer{text-align:center;color:#aaa;font-size:12px;margin-top:65px}
-@media(max-width:600px){.container{padding:35px 16px 50px}h1{font-size:34px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{padding:13px}.name{font-size:13px}.url{display:none}}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#111;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:28px 20px 70px}
+header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #111;padding-bottom:18px;margin-bottom:24px}
+h1{font-size:32px;margin:0;letter-spacing:.08em}.sub{color:#666;margin-top:6px}.date{font-size:13px;color:#555}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.card{border:1px solid #111;padding:20px;background:#fff}.card h2{font-size:17px;margin:0 0 15px}.hero{border:2px solid #111;padding:24px;margin-bottom:18px}.hero .big{font-size:44px;font-weight:800;letter-spacing:.04em}.muted{color:#666}.bar{height:9px;border:1px solid #111;margin-top:9px}.bar i{display:block;height:100%;background:#111;width:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi{border:1px solid #bbb;padding:13px}.kpi b{display:block;font-size:25px}.kpi span{font-size:12px;color:#666}
+.tasks{display:flex;flex-direction:column;gap:9px}.task{display:flex;gap:10px;align-items:center;border-bottom:1px solid #eee;padding:8px 0}.task input{width:18px;height:18px}.task.done label{text-decoration:line-through;color:#888}.tag{font-size:11px;border:1px solid #111;padding:2px 6px;margin-left:auto}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{background:#111;color:#fff;border:1px solid #111;padding:8px 12px}.btn.alt{background:#fff;color:#111}.btn.small{padding:5px 8px;font-size:12px}
+.countdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.countdown div{border:1px solid #bbb;padding:12px;text-align:center}.countdown b{font-size:27px;display:block}
+.tabs{display:flex;gap:7px;overflow:auto;margin:20px 0}.tab{white-space:nowrap;padding:9px 12px;border:1px solid #111;background:#fff}.tab.active{background:#111;color:#fff}
+.panel{display:none}.panel.active{display:block}.tree{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.node{border:1px solid #bbb;padding:11px;min-height:70px}.node b{display:block}.node small{color:#666}
+.resources{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.resource{border:1px solid #bbb;padding:13px}.resource b{display:block;margin-bottom:5px}.resource button{margin-top:8px}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #ddd;padding:9px;text-align:left;font-size:13px}textarea,input[type=text],input[type=date],input[type=number],select{border:1px solid #111;padding:9px;width:100%;background:#fff}
+.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalbox{background:#fff;border:2px solid #111;max-width:560px;width:100%;padding:20px}.modalbox h3{margin-top:0}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.tree,.resources{grid-template-columns:1fr 1fr}header{display:block}.date{margin-top:10px}.hero .big{font-size:34px}}
+@media(max-width:480px){.tree,.resources{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<main class="container">
-<header>
-<h1>MY LINKS</h1>
-<div class="subtitle">我的个人互联网导航</div>
-<div class="search"><input id="search" type="search" placeholder="搜索我的网站..." autocomplete="off"></div>
-</header>
+<div class="wrap">
+<header><div><h1>MY STUDY OS 3.0</h1><div class="sub">插班生 × CMC · 个人备考操作系统</div></div><div class="date" id="clock"></div></header>
 
-<section class="section" data-section>
-<div class="section-title">🤖 AI</div>
+<section class="hero">
+<div class="muted">当前主线</div><div class="big">今天，完成最重要的 6 件事。</div>
+<div style="margin-top:14px">今日任务进度 <b id="taskPct">0%</b></div><div class="bar"><i id="taskBar"></i></div>
+<div class="actions" style="margin-top:16px"><button class="btn" onclick="switchTab('today')">开始今日任务</button><button class="btn alt" onclick="switchTab('mistakes')">复盘错题</button><button class="btn alt" onclick="switchTab('resources')">打开资料库</button></div>
+</section>
+
 <div class="grid">
-<a class="card" data-name="ChatGPT" href="https://chatgpt.com/" target="_blank" rel="noopener"><span class="icon">AI</span><span><div class="name">ChatGPT</div><div class="url">chatgpt.com</div></span></a>
+<div>
+<section class="card"><h2>🎯 双主线倒计时</h2>
+<div class="countdown">
+<div><b id="cmcDays">—</b><span>CMC 天</span></div>
+<div><b id="transferDays">—</b><span>插班生天</span></div>
+<div><b id="pomCount">0</b><span>累计番茄</span></div>
+</div>
+<p class="muted">CMC 日期请在「设置」中填写；不要使用未确认的考试日期。</p>
+</section>
+
+<section class="card" style="margin-top:18px"><h2>📈 学习统计</h2>
+<div class="kpis">
+<div class="kpi"><b id="doneCount">0</b><span>今日完成</span></div>
+<div class="kpi"><b id="mistakeCount">0</b><span>错题数</span></div>
+<div class="kpi"><b id="reviewCount">0</b><span>待复习</span></div>
+<div class="kpi"><b id="hours">0</b><span>累计学习小时</span></div>
+</div>
+</section>
+
+<section class="card" style="margin-top:18px"><h2>🧭 阶段路线</h2>
+<table><tr><th>阶段</th><th>数学</th><th>英语</th><th>CMC</th></tr>
+<tr><td>现在 → 9月底</td><td>补漏洞 + 专题</td><td>词汇/语法/阅读</td><td>基础 + 每日竞赛题</td></tr>
+<tr><td>10月</td><td>真题/模拟</td><td>保持训练</td><td>专项突破 + 周模考</td></tr>
+<tr><td>11月考前</td><td>稳定正确率</td><td>维持手感</td><td>限时模拟 + 错题回炉</td></tr>
+<tr><td>CMC后</td><td>真题 → 模拟 → 冲刺</td><td>强化英语</td><td>—</td></tr>
+</table>
+</section>
+</div>
+
+<div>
+<section class="card"><h2>⏱️ 25 分钟番茄钟</h2>
+<div style="font-size:54px;font-weight:800;text-align:center" id="timer">25:00</div>
+<div class="actions"><button class="btn" onclick="startTimer()">开始</button><button class="btn alt" onclick="pauseTimer()">暂停</button><button class="btn alt" onclick="resetTimer()">重置</button></div>
+<p class="muted">完成一个番茄后自动记录；适合专项题、词汇、阅读和错题复盘。</p>
+</section>
+
+<section class="card" style="margin-top:18px"><h2>🔥 今日优先级</h2>
+<ol>
+<li>CMC：2 道高质量题，先独立思考。</li>
+<li>复旦数学：1 个薄弱专题 + 题型训练。</li>
+<li>英语：高频词汇 + 语法词汇题。</li>
+<li>仔细阅读：1 篇，强制定位证据。</li>
+<li>错题：写出“错因 + 正确方法”。</li>
+</ol>
+</section>
+</div>
+</div>
+
+<div class="tabs">
+<button class="tab active" data-tab="today">今日任务</button><button class="tab" data-tab="math">数学知识树</button><button class="tab" data-tab="english">英语路线</button><button class="tab" data-tab="resources">资料库</button><button class="tab" data-tab="mistakes">错题本</button><button class="tab" data-tab="review">复习队列</button><button class="tab" data-tab="settings">设置</button>
+</div>
+
+<section id="today" class="panel active card"><h2>✅ 今日任务</h2><div class="tasks" id="tasks"></div><div class="actions" style="margin-top:15px"><button class="btn alt" onclick="resetTasks()">重置今日任务</button></div></section>
+
+<section id="math" class="panel card"><h2>∫ 复旦插班生数学知识树</h2><p class="muted">按“专题 → 真题 → 模考 → 错题”推进。下面是目前资料中反复出现的核心结构。</p><div class="tree" id="mathTree"></div></section>
+
+<section id="english" class="panel card"><h2>Abc 英语路线</h2><div class="tree">
+<div class="node"><b>高频词汇</b><small>插班生高频词汇 + 985同义替换</small></div>
+<div class="node"><b>词汇语法</b><small>2000题 + 985 + 专四 + 复旦模考</small></div>
+<div class="node"><b>阅读</b><small>仔细阅读技巧 + 模拟阅读</small></div>
+<div class="node"><b>翻译</b><small>20篇材料循环练习</small></div>
+<div class="node"><b>写作</b><small>10大话题 + 高频短语</small></div>
+<div class="node"><b>复盘</b><small>错词 → 3日/7日/14日再测</small></div>
 </div></section>
 
-<section class="section" data-section>
-<div class="section-title">📚 学习 / 知识</div>
-<div class="grid">
-<a class="card" data-name="知乎" href="https://www.zhihu.com/" target="_blank" rel="noopener"><span class="icon">知</span><span><div class="name">知乎</div><div class="url">zhihu.com</div></span></a>
-</div></section>
+<section id="resources" class="panel card"><h2>📚 已接入资料库</h2><p class="muted">这里保存“学习入口”。资料本体不要直接公开到 GitHub；尤其不要把私人链接放进公开仓库。</p><div class="resources" id="resourcesList"></div></section>
 
-<section class="section" data-section>
-<div class="section-title">🛠️ 工具 / 资源</div>
-<div class="grid">
-<a class="card" data-name="小众技术工具库" href="https://www.xiaozhongjishu.com/" target="_blank" rel="noopener"><span class="icon">小</span><span><div class="name">小众技术工具库</div><div class="url">xiaozhongjishu.com</div></span></a>
-</div></section>
+<section id="mistakes" class="panel card"><h2>❌ 错题本</h2>
+<div class="actions"><button class="btn" onclick="openMistake()">+ 记录错题</button></div>
+<div style="overflow:auto;margin-top:12px"><table><thead><tr><th>日期</th><th>科目</th><th>题型</th><th>错因</th><th>下次复习</th><th></th></tr></thead><tbody id="mistakesTable"></tbody></table></div>
+</section>
 
-<section class="section" data-section>
-<div class="section-title">📝 备忘 / 笔记</div>
-<div class="grid">
-<a class="card" data-name="iCloud 备忘录" href="https://www.icloud.com.cn/notes/note/UHJpdmF0ZTo6Tm90ZXM6OmN1cnJlbnRVc2VyOjoxNjI3ZDRiMi05NGRhLTQ3NzUtYmM1Yi0yNGQ3NmI0ZGJlYzg=" target="_blank" rel="noopener"><span class="icon">☑</span><span><div class="name">iCloud 备忘录</div><div class="url">icloud.com.cn</div></span></a>
-</div></section>
+<section id="review" class="panel card"><h2>🔁 间隔复习队列</h2><p class="muted">默认采用 1 → 3 → 7 → 14 → 30 天节奏。错题录入后会自动进入队列。</p><div id="reviewList"></div></section>
 
-<section class="section" data-section>
-<div class="section-title">🗺️ 地图 / 出行</div>
-<div class="grid">
-<a class="card" data-name="高德地图" href="https://ditu.amap.com/" target="_blank" rel="noopener"><span class="icon">地</span><span><div class="name">高德地图</div><div class="url">ditu.amap.com</div></span></a>
-</div></section>
+<section id="settings" class="panel card"><h2>⚙️ 设置</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>CMC 考试日期</label><input type="date" id="cmcDate"></div><div><label>插班生目标日期</label><input type="date" id="transferDate"></div></div>
+<div class="actions" style="margin-top:15px"><button class="btn" onclick="saveDates()">保存日期</button><button class="btn alt" onclick="clearDates()">清空日期</button><button class="btn alt" onclick="clearAll()">清空本机学习数据</button></div>
+<p class="muted">所有任务、番茄、错题和日期只保存在当前浏览器 localStorage；换设备不会自动同步。</p>
+</section>
+</div>
 
-<section class="section" data-section>
-<div class="section-title">🎬 影视 / 娱乐</div>
-<div class="grid">
-<a class="card" data-name="YouTube 电影" href="https://www.youtube.com/feed/storefront" target="_blank" rel="noopener"><span class="icon">▶</span><span><div class="name">YouTube 电影</div><div class="url">youtube.com</div></span></a>
-<a class="card" data-name="哔哩哔哩 Bilibili" href="https://www.bilibili.com/" target="_blank" rel="noopener"><span class="icon">哔</span><span><div class="name">哔哩哔哩</div><div class="url">bilibili.com</div></span></a>
-</div></section>
+<div class="modal" id="modal"><div class="modalbox"><h3>记录错题</h3>
+<label>科目</label><select id="mSubject"><option>数学</option><option>英语</option><option>CMC</option></select>
+<label>题型</label><input id="mType" type="text" placeholder="例如：中值定理证明 / 级数 / 词汇语法">
+<label style="display:block;margin-top:10px">错因</label><textarea id="mReason" rows="4" placeholder="为什么错？正确方法是什么？"></textarea>
+<div class="actions" style="margin-top:12px"><button class="btn" onclick="saveMistake()">保存</button><button class="btn alt" onclick="closeModal()">取消</button></div>
+</div></div>
 
-<section class="section" data-section>
-<div class="section-title">🌐 社交 / 信息</div>
-<div class="grid">
-<a class="card" data-name="X" href="https://x.com/home" target="_blank" rel="noopener"><span class="icon">𝕏</span><span><div class="name">X</div><div class="url">x.com</div></span></a>
-</div></section>
-
-<div id="empty" class="empty">没有找到匹配的网站</div>
-<footer>My Links · 2026</footer>
-</main>
 <script>
-const input=document.getElementById('search'), empty=document.getElementById('empty');
-input.addEventListener('input',()=>{
- const q=input.value.trim().toLowerCase(); let visible=0;
- document.querySelectorAll('[data-section]').forEach(s=>{
-   let count=0;
-   s.querySelectorAll('.card').forEach(c=>{
-     const ok=!q || c.dataset.name.toLowerCase().includes(q);
-     c.style.display=ok?'flex':'none'; if(ok){count++;visible++}
-   });
-   s.style.display=count?'block':'none';
- });
- empty.style.display=visible?'none':'block';
-});
+const TASKS=[
+["CMC竞赛题","2 道高质量题 · 60 min"],["复旦数学","1 个薄弱专题专项 · 60 min"],
+["英语词汇","高频词汇 40 个 · 30 min"],["语法词汇","2000题/985/专四 20题 · 30 min"],
+["英语阅读","仔细阅读 1 篇 · 30 min"],["复盘","整理错题 + 明日复习队列 · 20 min"]
+];
+const RES=[
+["插班生数学考前必刷","真题/高频题型入口"],["复旦2016—2025历年真题","核心真题层"],["同达数学一月模拟","阶段模拟"],["同达数学三月模拟","阶段模拟 + 答案"],["同达数学四月模考","阶段模考"],["同达数学五月模考一/二/三轮","考前综合模考"],["科兴复旦数学阶段测试/仿真卷","模拟训练层"],["同达数学专题讲义","极限/数列/中值定理/级数/不等式/多元等"],["插班生语法与词汇2000题","词汇语法训练"],["985英语词汇语法","高阶词汇语法"],["985阅读同义词替换","阅读定位与同义改写"],["专四词汇语法详细解答","高阶语法词汇"],["插班生英语高频词汇","词汇主线"],["四六级仔细阅读解题技巧","阅读方法"],["四六级冲刺必背词汇&短语","词汇短语"],["四六级写作10大话题 + 翻译20篇 + 高频写作短语","输出训练"]
+];
+const MATH=["极限","数列极限","中值定理证明","高阶导数","不定/定积分","微分方程","参数方程","多元函数","隐函数","极值与不等式","二重积分","曲线/曲面积分","无穷级数","线性代数","矩阵与特征值","空间解析几何","综合证明题"];
+let state=JSON.parse(localStorage.studyOS3||"{}");
+state.tasks=state.tasks||Array(TASKS.length).fill(false);state.mistakes=state.mistakes||[];state.pom=state.pom||0;state.hours=state.hours||0;
+function save(){localStorage.studyOS3=JSON.stringify(state);render();}
+function render(){
+document.getElementById("tasks").innerHTML=TASKS.map((x,i)=>`<div class="task ${state.tasks[i]?'done':''}"><input type="checkbox" ${state.tasks[i]?'checked':''} onchange="toggleTask(${i})"><label><b>${x[0]}</b> · ${x[1]}</label><span class="tag">${i<2?'高优先级':i<5?'主线':'复盘'}</span></div>`).join("");
+let done=state.tasks.filter(Boolean).length,p=Math.round(done/TASKS.length*100);document.getElementById("taskPct").textContent=p+"%";document.getElementById("taskBar").style.width=p+"%";document.getElementById("doneCount").textContent=done;document.getElementById("pomCount").textContent=state.pom;document.getElementById("mistakeCount").textContent=state.mistakes.length;document.getElementById("hours").textContent=(state.hours||0).toFixed(1);document.getElementById("reviewCount").textContent=state.mistakes.filter(m=>new Date(m.next)<=new Date()).length;
+document.getElementById("mathTree").innerHTML=MATH.map(x=>`<div class="node"><b>${x}</b><small>未开始 · 做题后可在错题本追踪</small></div>`).join("");
+document.getElementById("resourcesList").innerHTML=RES.map(x=>`<div class="resource"><b>${x[0]}</b><small class="muted">${x[1]}</small><br><button class="btn small alt" onclick="alert('这是系统中的资料入口。当前版本不会自动把私人/上传文件发布到公开网页。')">学习入口</button></div>`).join("");
+document.getElementById("mistakesTable").innerHTML=state.mistakes.length?state.mistakes.map((m,i)=>`<tr><td>${m.date}</td><td>${m.subject}</td><td>${m.type}</td><td>${m.reason}</td><td>${m.next}</td><td><button class="btn small alt" onclick="delMistake(${i})">删除</button></td></tr>`).join(""):"<tr><td colspan=6 class=muted>还没有错题。第一次做错并认真记录，才是系统真正开始学习的时候。</td></tr>";
+document.getElementById("reviewList").innerHTML=state.mistakes.length?state.mistakes.map((m,i)=>`<div class="card" style="margin:8px 0"><b>${m.subject} · ${m.type}</b><div>${m.reason}</div><small class="muted">下次复习：${m.next}</small></div>`).join(""):"<p class=muted>暂无复习任务。</p>";
+}
+function toggleTask(i){state.tasks[i]=!state.tasks[i];save()}function resetTasks(){state.tasks=Array(TASKS.length).fill(false);save()}
+function switchTab(id){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id))}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+function openMistake(){document.getElementById("modal").classList.add("show")}function closeModal(){document.getElementById("modal").classList.remove("show")}
+function addDays(d,n){let x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)}
+function saveMistake(){let r=document.getElementById("mReason").value.trim();if(!r)return alert("请先写错因");let d=new Date().toISOString().slice(0,10);state.mistakes.unshift({date:d,subject:mSubject.value,type:mType.value||"未分类",reason:r,next:addDays(d,1)});closeModal();document.getElementById("mReason").value="";document.getElementById("mType").value="";save()}
+function delMistake(i){state.mistakes.splice(i,1);save()}
+let interval=null,secs=1500;
+function tick(){secs--;document.getElementById("timer").textContent=String(Math.floor(secs/60)).padStart(2,"0")+":"+String(secs%60).padStart(2,"0");if(secs<=0){pauseTimer();state.pom++;state.hours+=.4167;save();alert("番茄完成，休息一下。");resetTimer()}}
+function startTimer(){if(!interval)interval=setInterval(tick,1000)}function pauseTimer(){clearInterval(interval);interval=null}function resetTimer(){pauseTimer();secs=1500;document.getElementById("timer").textContent="25:00"}
+function daysTo(s){if(!s)return"—";let d=Math.ceil((new Date(s+"T23:59:59")-new Date())/86400000);return d<0?"已过":d}
+function updateDates(){cmcDays.textContent=daysTo(localStorage.cmcDate);transferDays.textContent=daysTo(localStorage.transferDate)}
+function saveDates(){if(cmcDate.value)localStorage.cmcDate=cmcDate.value;else localStorage.removeItem("cmcDate");if(transferDate.value)localStorage.transferDate=transferDate.value;else localStorage.removeItem("transferDate");updateDates();alert("日期已保存")}
+function clearDates(){localStorage.removeItem("cmcDate");localStorage.removeItem("transferDate");cmcDate.value="";transferDate.value="";updateDates()}
+function clearAll(){if(confirm("确定清空本机全部学习数据？")){localStorage.removeItem("studyOS3");location.reload()}}
+function clock(){document.getElementById("clock").textContent=new Date().toLocaleString("zh-CN",{hour12:false})}
+clock();setInterval(clock,1000);updateDates();render();
 </script>
-</body>
-</html>
+</body></html>
